@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import Form from './Component/Form';
+import ContactForm from './Component/ContactForm';
 import { v4 as uuidv4 } from 'uuid';
-// import Filter from './Component/Filter';
+import Filter from './Component/Filter';
+import ContactList from './Component/ContactList';
+// import ContactList from './Component/ContactList';
 
 class App extends Component {
   state = {
@@ -37,26 +39,34 @@ class App extends Component {
       contacts: [...contacts, contact],
     }));
   };
+
   changeFilter = event => {
     this.setState({ filter: event.currentTarget.value });
   };
+
+  getVisibleList = () => {
+    const { filter, contacts } = this.state;
+    const normalisedFilter = filter.toLowerCase();
+
+    return contacts.filter(contact => contact.name.toLowerCase().includes(normalisedFilter));
+  };
+
+  deleteContacts = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
+
   render() {
     return (
-      <>
-        <Form propSubmit={this.addContact} />
+      <div>
+        <h1>Phonebook</h1>
+        <ContactForm propSubmit={this.addContact} />
         <h2>Contacts</h2>
         <p>Find contacts by name</p>
-        <label id={this.name}>
-          <input type="text" value={this.state.filter} onChange={this.changeFilter} name="filter" />
-        </label>
-        <ul>
-          {this.state.contacts.map(contact => (
-            <li key={contact.id}>
-              {contact.name}: {contact.number}
-            </li>
-          ))}
-        </ul>
-      </>
+        <Filter value={this.state.filter} onChange={this.changeFilter} />
+        <ContactList contacts={this.getVisibleList()} onDelete={this.deleteContacts} />
+      </div>
     );
   }
 }
