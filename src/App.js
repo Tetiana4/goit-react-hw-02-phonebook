@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Form from './Component/Form';
+import { v4 as uuidv4 } from 'uuid';
+// import Filter from './Component/Filter';
 
 class App extends Component {
   state = {
@@ -24,14 +26,28 @@ class App extends Component {
     });
   };
 
+  addContact = data => {
+    const contact = {
+      id: uuidv4(),
+      name: data.name,
+      number: data.number,
+    };
+
+    this.setState(({ contacts }) => ({
+      contacts: [...contacts, contact],
+    }));
+  };
+  changeFilter = event => {
+    this.setState({ filter: event.currentTarget.value });
+  };
   render() {
     return (
       <>
-        <Form propSubmit={this.formSubmitHandler} />
+        <Form propSubmit={this.addContact} />
         <h2>Contacts</h2>
         <p>Find contacts by name</p>
         <label id={this.name}>
-          <input type="text" value={this.state.filter} onChange={this.handleChange} name="filter" />
+          <input type="text" value={this.state.filter} onChange={this.changeFilter} name="filter" />
         </label>
         <ul>
           {this.state.contacts.map(contact => (
