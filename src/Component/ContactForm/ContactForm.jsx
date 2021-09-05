@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { Form, Label, Button } from './ContactForm.styled';
 
 class ContactForm extends Component {
   state = {
     name: '',
     number: '',
   };
+
   nameInputId = uuidv4();
   numberInputId = uuidv4();
 
@@ -19,7 +21,6 @@ class ContactForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
     this.props.propSubmit(this.state);
     this.resetForm();
   };
@@ -34,10 +35,11 @@ class ContactForm extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor={this.nameInputId}>
+        <Form onSubmit={this.handleSubmit}>
+          <Label htmlFor={this.nameInputId}>
             Name
             <input
+              placeholder="name"
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -47,10 +49,11 @@ class ContactForm extends Component {
               onChange={this.handleChange}
               id={this.nameInputId}
             />
-          </label>
-          <label htmlFor={this.numberInputId}>
+          </Label>
+          <Label htmlFor={this.numberInputId}>
             Number
             <input
+              placeholder="number"
               type="tel"
               name="number"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -60,9 +63,9 @@ class ContactForm extends Component {
               onChange={this.handleChange}
               id={this.numberInputId}
             />
-          </label>
-          <button type="submit">Add contact</button>
-        </form>
+          </Label>
+          <Button type="submit">Add contact</Button>
+        </Form>
       </div>
     );
   }
