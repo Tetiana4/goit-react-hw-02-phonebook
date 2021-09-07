@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Form, Label, Button } from './ContactForm.styled';
+import { Label, Button, Input } from './ContactForm.styled';
 
 class ContactForm extends Component {
   state = {
@@ -35,10 +35,10 @@ class ContactForm extends Component {
   render() {
     return (
       <div>
-        <Form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <Label htmlFor={this.nameInputId}>
             Name
-            <input
+            <Input
               placeholder="name"
               type="text"
               name="name"
@@ -52,7 +52,7 @@ class ContactForm extends Component {
           </Label>
           <Label htmlFor={this.numberInputId}>
             Number
-            <input
+            <Input
               placeholder="number"
               type="tel"
               name="number"
@@ -65,7 +65,7 @@ class ContactForm extends Component {
             />
           </Label>
           <Button type="submit">Add contact</Button>
-        </Form>
+        </form>
       </div>
     );
   }

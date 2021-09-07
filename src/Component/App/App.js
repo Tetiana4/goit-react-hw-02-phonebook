@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ContactForm from './Component/ContactForm/ContactForm';
 import { v4 as uuidv4 } from 'uuid';
-import Filter from './Component/Filter/Filter';
-import ContactList from './Component/ContactList/ContactList';
-import { Div } from './App.styled';
+import ContactForm from '../ContactForm/ContactForm';
+import Filter from '../Filter/Filter';
+import ContactList from '../ContactList/ContactList';
+import { Container, Title } from './App.styled';
 
 class App extends Component {
   state = {
@@ -59,14 +59,14 @@ class App extends Component {
 
   render() {
     return (
-      <Div>
-        <h1>Phonebook</h1>
+      <Container>
+        <Title>Phonebook</Title>
         <ContactForm propSubmit={this.addContact} />
         <h2>Contacts</h2>
         <p>Find contacts by name</p>
         <Filter value={this.state.filter} onChange={this.changeFilter} />
         <ContactList contacts={this.getVisibleList()} onDelete={this.deleteContacts} />
-      </Div>
+      </Container>
     );
   }
 }
